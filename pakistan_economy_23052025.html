@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pakistan's Economic Crossroads: A Visual Journey</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F7F7F7; /* Light Gray from "Energetic & Playful" palette (adjusted for background) */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Default max-width */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Base height */
+            max-height: 400px; /* Max height */
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .sticky-nav {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #FF6B6B; /* Coral Red */
+        }
+        .section-title {
+            color: #118AB2; /* Cerulean Blue */
+        }
+        .stat-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #FF6B6B; /* Coral Red accent */
+        }
+        .stat-value {
+            color: #FF6B6B; /* Coral Red */
+        }
+        .sub-stat-value {
+            color: #118AB2; /* Cerulean Blue */
+        }
+        .flowchart-item {
+            border: 2px solid #06D6A0; /* Turquoise Green */
+            background-color: white;
+        }
+        .flowchart-arrow {
+            color: #06D6A0; /* Turquoise Green */
+        }
+        .list-item-icon {
+            color: #FFD166; /* Sunny Yellow */
+        }
+        /* Energetic & Playful Palette:
+           Primary: #FF6B6B (Coral Red)
+           Secondary: #FFD166 (Sunny Yellow)
+           Accent 1: #06D6A0 (Turquoise Green)
+           Accent 2: #118AB2 (Cerulean Blue)
+           Neutral/Background: #F7F7F7 (Light Gray)
+           Text: #333333 (Dark Gray)
+        */
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-[#118AB2] text-white py-12 text-center">
+        <div class="container mx-auto px-6">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Pakistan's Economic Crossroads</h1>
+            <p class="text-lg md:text-xl mb-2">A Visual Journey Through Recent Trends, Current Realities, and Future Prospects</p>
+        </div>
+    </header>
+
+    <nav class="sticky-nav shadow-md">
+        <div class="container mx-auto px-6 py-3 flex flex-wrap justify-center space-x-4 md:space-x-6">
+            <a href="#decade-review" class="nav-link text-gray-700 font-semibold">Decade Review</a>
+            <a href="#current-pulse" class="nav-link text-gray-700 font-semibold">Current Pulse</a>
+            <a href="#future-outlook" class="nav-link text-gray-700 font-semibold">Future Outlook</a>
+            <a href="#deep-rooted" class="nav-link text-gray-700 font-semibold">Deep-Rooted Issues</a>
+            <a href="#expert-opinion" class="nav-link text-gray-700 font-semibold">Expert Opinion</a>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-8">
+
+        <section id="decade-review" class="py-8">
+            <h2 class="text-3xl font-bold mb-6 text-center section-title">A Decade of Volatility (FY2015-FY2024)</h2>
+            <p class="text-lg text-gray-700 mb-8 text-center max-w-3xl mx-auto">The fiscal years 2015 through 2024 marked a period of significant economic turbulence for Pakistan. It saw phases of growth, often fueled by projects like CPEC, but these were frequently overshadowed by macroeconomic imbalances, external shocks like the COVID-19 pandemic (FY20) and devastating floods (FY23), leading to recurrent IMF interventions.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-3 text-[#118AB2]">Real GDP Growth (Annual %)</h3>
+                    <p class="text-sm text-gray-600 mb-4">Pakistan's GDP growth exhibited a 'boom-bust' cycle, with periods of acceleration followed by sharp slowdowns or contractions, highlighting a lack of sustainable, resilient growth.</p>
+                    <div class="chart-container h-64 md:h-80"><canvas id="gdpGrowthChart"></canvas></div>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-3 text-[#118AB2]">Average CPI Inflation (Annual %)</h3>
+                    <p class="text-sm text-gray-600 mb-4">Inflation remained relatively contained in the early part of the decade but surged dramatically from FY19 onwards, peaking in FY23, severely impacting living standards.</p>
+                    <div class="chart-container h-64 md:h-80"><canvas id="inflationChart"></canvas></div>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-3 text-[#118AB2]">PKR/USD Exchange Rate (Avg. Fiscal Year)</h3>
+                    <p class="text-sm text-gray-600 mb-4">The Pakistani Rupee saw significant depreciation against the US Dollar, particularly from FY18, increasing import costs and external debt servicing burdens.</p>
+                    <div class="chart-container h-64 md:h-80"><canvas id="exchangeRateChart"></canvas></div>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-3 text-[#118AB2]">Fiscal Deficit & Public Debt (% of GDP)</h3>
+                    <p class="text-sm text-gray-600 mb-4">Persistent fiscal deficits, driven by low tax revenue and high expenditures, led to a stubbornly high public debt-to-GDP ratio, constraining fiscal space.</p>
+                    <div class="chart-container h-64 md:h-80"><canvas id="fiscalIndicatorsChart"></canvas></div>
+                </div>
+                <div class="stat-card md:col-span-2">
+                    <h3 class="text-xl font-semibold mb-3 text-center text-[#118AB2]">External Balances: Current Account & FX Reserves</h3>
+                    <p class="text-sm text-gray-600 mb-4 text-center">The current account typically remained in deficit, often widening during growth periods. Foreign exchange reserves were volatile, frequently dropping to critically low levels, necessitating external support.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                             <p class="text-md font-semibold mb-2 text-center text-gray-700">Current Account Balance (% of GDP)</p>
+                            <div class="chart-container h-56 md:h-72"><canvas id="currentAccountChart"></canvas></div>
+                        </div>
+                        <div>
+                            <p class="text-md font-semibold mb-2 text-center text-gray-700">FX Reserves (SBP, USD Billion, EOP)</p>
+                            <div class="chart-container h-56 md:h-72"><canvas id="fxReservesChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="current-pulse" class="py-8">
+            <h2 class="text-3xl font-bold mb-6 text-center section-title">The Current Economic Pulse (FY2024 – Early FY2025)</h2>
+            <p class="text-lg text-gray-700 mb-8 text-center max-w-3xl mx-auto">Following acute distress in FY23, Pakistan initiated macroeconomic stabilization under an IMF SBA. This involved exchange rate flexibility, import control relaxation, fiscal deficit containment, and aggressive monetary tightening, yielding noticeable results but with subdued growth.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="stat-card text-center">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-1">Headline Inflation (Apr 2025 YoY)</h4>
+                    <p class="text-4xl font-bold stat-value">0.3%</p>
+                    <p class="text-xs text-gray-500">Significant easing from crisis peaks.</p>
+                </div>
+                <div class="stat-card text-center">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-1">Core Inflation (Early FY25)</h4>
+                    <p class="text-4xl font-bold sub-stat-value">~9%</p>
+                    <p class="text-xs text-gray-500">Underlying pressures persist.</p>
+                </div>
+                <div class="stat-card text-center">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-1">SBP Gross Reserves (Apr 2025)</h4>
+                    <p class="text-4xl font-bold stat-value">$10.3B</p>
+                    <p class="text-xs text-gray-500">Gradual rebuilding from low levels.</p>
+                </div>
+                <div class="stat-card text-center">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-1">Current Account (Jul'24-Feb'25)</h4>
+                    <p class="text-4xl font-bold stat-value">$0.7B <span class="text-2xl">Surplus</span></p>
+                    <p class="text-xs text-gray-500">Strengthened external position.</p>
+                </div>
+            </div>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="stat-card text-center">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-1">Primary Surplus (H1 FY25)</h4>
+                     <div class="chart-container mx-auto" style="height: 200px; max-width: 200px;"><canvas id="primarySurplusDonut"></canvas></div>
+                    <p class="text-xs text-gray-500 mt-2">On track to meet IMF target of 2.1% for FY25.</p>
+                </div>
+                 <div class="stat-card text-center">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-1">Circular Debt (Energy Sector, Jun 2024)</h4>
+                    <p class="text-4xl font-bold sub-stat-value">PKR 2.7T</p>
+                    <p class="text-sm text-gray-600">(Approx. $9.7 Billion)</p>
+                    <p class="text-xs text-gray-500 mt-1">A critical constraint on the economy.</p>
+                </div>
+            </div>
+
+
+            <h3 class="text-2xl font-semibold mb-4 text-center text-[#118AB2]">Sectoral Snapshot & Social Dimensions</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-semibold text-lg mb-2 text-[#06D6A0]">🌾 Agriculture</h4>
+                    <p class="text-sm text-gray-600">Limited growth in FY24 due to weather and pests. Long-term challenges include water scarcity and outdated tech. Agri income tax is a key reform.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-semibold text-lg mb-2 text-[#06D6A0]">🏭 Industry/Manufacturing</h4>
+                    <p class="text-sm text-gray-600">Declined in H1 FY24 due to high costs and reduced spending. Competitiveness issues and policy risks persist for Large-Scale Manufacturing.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-semibold text-lg mb-2 text-[#06D6A0]">💻 Services (IT Focus)</h4>
+                    <p class="text-sm text-gray-600">Muted overall growth, but IT & ITeS show promise with ~28% YoY export growth. Tourism has potential but needs development.</p>
+                </div>
+                <div class="stat-card md:col-span-3 lg:col-span-3">
+                     <h4 class="font-semibold text-lg mb-2 text-center text-[#FF6B6B]">Social Impact: Poverty & Human Capital</h4>
+                     <div class="flex flex-col md:flex-row justify-around items-center text-center">
+                        <div class="my-4 md:my-0">
+                            <p class="text-3xl font-bold stat-value">42.3%</p>
+                            <p class="text-sm text-gray-600">Poverty Rate (FY24, <$3.65/day)</p>
+                            <p class="text-xs text-gray-500">2.6M more people below poverty line.</p>
+                        </div>
+                        <div class="my-4 md:my-0">
+                            <p class="text-gray-600 text-sm leading-relaxed max-w-md">
+                                <span class="list-item-icon">●</span> Over 1/3 school-age children out of school.<br>
+                                <span class="list-item-icon">●</span> ~2/3 in-school children "learning deprived."<br>
+                                <span class="list-item-icon">●</span> 40% children under five stunted (FY23).
+                            </p>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="future-outlook" class="py-8">
+            <h2 class="text-3xl font-bold mb-6 text-center section-title">Peering into the Future (FY2025 – FY2027)</h2>
+            <p class="text-lg text-gray-700 mb-8 text-center max-w-3xl mx-auto">Forecasts suggest a gradual, modest recovery, contingent on sustained reforms and stable global conditions. However, significant risks remain, including policy slippage and external shocks.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-3 text-[#118AB2]">Projected Real GDP Growth (%)</h3>
+                    <p class="text-sm text-gray-600 mb-4">Institutions like IMF, World Bank, and ADB project a slow pickup in growth, constrained by necessary tight policies.</p>
+                    <div class="chart-container h-64 md:h-80"><canvas id="gdpForecastChart"></canvas></div>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-3 text-[#118AB2]">Projected Average CPI Inflation (%)</h3>
+                    <p class="text-sm text-gray-600 mb-4">Significant moderation expected in FY25, though potential for a rise in medium term due to demand and tax measures.</p>
+                    <div class="chart-container h-64 md:h-80"><canvas id="inflationForecastChart"></canvas></div>
+                </div>
+            </div>
+            <div class="stat-card md:col-span-2">
+                 <h3 class="text-xl font-semibold mb-4 text-center text-[#118AB2]">Key Risks to Recovery</h3>
+                 <p class="text-sm text-gray-600 mb-6 text-center">The path to recovery is laden with potential pitfalls that could derail progress.</p>
+                 <div class="flex flex-wrap justify-center gap-4">
+                    <div class="flowchart-item p-3 rounded-md text-center text-sm w-full sm:w-auto">Policy Slippage & Reform Fatigue</div>
+                    <div class="flowchart-arrow text-2xl hidden sm:block mx-2 self-center">&rarr;</div>
+                    <div class="flowchart-item p-3 rounded-md text-center text-sm w-full sm:w-auto">Global Economic Headwinds</div>
+                     <div class="flowchart-arrow text-2xl hidden sm:block mx-2 self-center">&rarr;</div>
+                    <div class="flowchart-item p-3 rounded-md text-center text-sm w-full sm:w-auto">Domestic Political Instability</div>
+                 </div>
+                 <div class="flex justify-center my-2 sm:hidden"> <span class="flowchart-arrow text-2xl">&darr;</span></div>
+                 <div class="flex flex-wrap justify-center gap-4 mt-0 sm:mt-4">
+                    <div class="flowchart-item p-3 rounded-md text-center text-sm w-full sm:w-auto">Climate-Related Shocks</div>
+                    <div class="flowchart-arrow text-2xl hidden sm:block mx-2 self-center">&rarr;</div>
+                    <div class="flowchart-item p-3 rounded-md text-center text-sm w-full sm:w-auto">Debt Sustainability Pressures</div>
+                     <div class="flowchart-arrow text-2xl hidden sm:block mx-2 self-center">&rarr;</div>
+                    <div class="flowchart-item p-3 rounded-md text-center text-sm w-full sm:w-auto">Shortfall in External Financing</div>
+                 </div>
+            </div>
+        </section>
+
+        <section id="deep-rooted" class="py-8">
+            <h2 class="text-3xl font-bold mb-6 text-center section-title">The "Genetic Code": Deep-Rooted Factors</h2>
+            <p class="text-lg text-gray-700 mb-8 text-center max-w-3xl mx-auto">Understanding Pakistan's recurring economic challenges requires looking at underlying structural issues that influence its growth potential and resilience.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-semibold text-lg mb-2 text-[#FF6B6B]">📉 Low Tax-to-GDP Ratio</h4>
+                    <p class="text-sm text-gray-600">Chronic inability to generate sufficient tax revenue (e.g., 11.1% in 2022). Narrow base, evasion, and weak enforcement are key issues. Reforms aim to broaden the base.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-semibold text-lg mb-2 text-[#FF6B6B]">💡 Energy Sector & Circular Debt</h4>
+                    <p class="text-sm text-gray-600">Circular debt (over PKR 2.7T) is a major fiscal drain. Caused by IPP contracts, imported fuel reliance, T&D losses, poor recovery, and subsidies.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-semibold text-lg mb-2 text-[#FF6B6B]">🏢 SOE Performance</h4>
+                    <p class="text-sm text-gray-600">Inefficient State-Owned Enterprises incur losses, burdening the budget. Privatization/restructuring efforts are slow.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-semibold text-lg mb-2 text-[#FFD166]">🚢 Trade & Export Competitiveness</h4>
+                    <p class="text-sm text-gray-600">Struggles with a dynamic export sector. Overvalued exchange rates historically, protectionist policies, and concentrated export basket (textiles) are issues.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-semibold text-lg mb-2 text-[#FFD166]">🏛️ Governance & Political Instability</h4>
+                    <p class="text-sm text-gray-600">Political volatility, policy discontinuity, lack of transparency, and corruption deter investment and hinder reforms.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-semibold text-lg mb-2 text-[#FFD166]">🤝 Reliance on External Financing (IMF)</h4>
+                    <p class="text-sm text-gray-600">Frequent recourse to IMF (over 20 times) due to chronic deficits and BoP crises. Conditionalities bring stabilization but also social costs and dependency concerns.</p>
+                </div>
+            </div>
+            <div class="stat-card mt-8">
+                <h3 class="text-xl font-semibold mb-3 text-center text-[#118AB2]">🇨🇳🇵🇰 China-Pakistan Economic Corridor (CPEC)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold text-lg mb-2 text-[#06D6A0]">Potential Benefits</h4>
+                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                            <li>Infrastructure upgrade (roads, ports, energy)</li>
+                            <li>Boost trade and connectivity</li>
+                            <li>Attract further investment & create jobs</li>
+                            <li>Phase 2 focus: industrial cooperation, SEZs, agriculture, IT</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-lg mb-2 text-[#FF6B6B]">Concerns & Challenges</h4>
+                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                            <li>Debt implications (Pakistan owes ~$30B to China)</li>
+                            <li>Slow project completion & security issues</li>
+                            <li>Lack of transparency in some agreements</li>
+                            <li>Equitable benefit distribution</li>
+                        </ul>
+                    </div>
+                </div>
+                 <p class="text-xs text-gray-500 mt-4 text-center">CPEC's impact hinges on integration with national development, transparency, and sustainable management.</p>
+            </div>
+        </section>
+
+        <section id="expert-opinion" class="py-8">
+            <h2 class="text-3xl font-bold mb-6 text-center section-title">Expert Opinion: Conditional Optimism</h2>
+            <p class="text-lg text-gray-700 mb-8 text-center max-w-3xl mx-auto">Pakistan's economic future is a complex balance of potential and vulnerability. Recent stabilization offers a window, but sustained, domestically-owned reforms are crucial to break past cycles and achieve inclusive growth.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-3 text-[#06D6A0]">Strengths & Untapped Potential 🌱</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start"><span class="list-item-icon mr-2 mt-1">●</span> <strong>Demographic Dividend:</strong> Large, youthful population.</li>
+                        <li class="flex items-start"><span class="list-item-icon mr-2 mt-1">●</span> <strong>Strategic Location:</strong> Potential trade/transit hub.</li>
+                        <li class="flex items-start"><span class="list-item-icon mr-2 mt-1">●</span> <strong>Agricultural Base:</strong> Major GDP contributor, room for productivity gains.</li>
+                        <li class="flex items-start"><span class="list-item-icon mr-2 mt-1">●</span> <strong>Growing IT Sector:</strong> Robust export growth.</li>
+                        <li class="flex items-start"><span class="list-item-icon mr-2 mt-1">●</span> <strong>Natural Resources:</strong> Renewable energy, minerals.</li>
+                    </ul>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-3 text-[#FF6B6B]">Persistent Vulnerabilities & Headwinds 🚩</h3>
+                     <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start"><span class="list-item-icon mr-2 mt-1">●</span> <strong>High Debt Burden:</strong> Limits fiscal space.</li>
+                        <li class="flex items-start"><span class="list-item-icon mr-2 mt-1">●</span> <strong>Chronic Twin Deficits:</strong> Fiscal and current account.</li>
+                        <li class="flex items-start"><span class="list-item-icon mr-2 mt-1">●</span> <strong>Energy Sector Crisis:</strong> Circular debt.</li>
+                        <li class="flex items-start"><span class="list-item-icon mr-2 mt-1">●</span> <strong>Weak Governance & Political Instability.</strong></li>
+                        <li class="flex items-start"><span class="list-item-icon mr-2 mt-1">●</span> <strong>Human Capital Deficiencies.</strong></li>
+                        <li class="flex items-start"><span class="list-item-icon mr-2 mt-1">●</span> <strong>Climate Change Vulnerability.</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <h3 class="text-xl font-semibold mb-4 text-center text-[#118AB2]">Key Reforms Needed for Sustainable Growth 🔑</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                    <div class="p-3 bg-blue-50 rounded-md">Sustained Fiscal Consolidation (tax base, expenditure)</div>
+                    <div class="p-3 bg-green-50 rounded-md">Comprehensive Energy Sector Reforms (circular debt, tariffs)</div>
+                    <div class="p-3 bg-yellow-50 rounded-md">SOE Reforms (privatization/restructuring)</div>
+                    <div class="p-3 bg-red-50 rounded-md">Prudent Monetary & Exchange Rate Policy</div>
+                    <div class="p-3 bg-indigo-50 rounded-md">Trade Liberalization & Export Promotion</div>
+                    <div class="p-3 bg-purple-50 rounded-md">Strengthening Governance & Institutions</div>
+                    <div class="p-3 bg-pink-50 rounded-md">Investing in Human Capital (education, health)</div>
+                    <div class="p-3 bg-gray-100 rounded-md">Building Climate Resilience</div>
+                </div>
+                <p class="text-center mt-6 text-gray-700 font-semibold">Success hinges on genuine domestic "reform ownership" and breaking from past patterns of inconsistent implementation.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#333333] text-gray-300 py-8 text-center">
+        <p class="text-xs mt-1">This infographic is for informational purposes only and not financial advice.</p>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const primaryColor = '#FF6B6B'; // Coral Red
+        const secondaryColor = '#FFD166'; // Sunny Yellow
+        const accent1Color = '#06D6A0'; // Turquoise Green
+        const accent2Color = '#118AB2'; // Cerulean Blue
+        const gridColor = 'rgba(0, 0, 0, 0.1)';
+        const textColor = '#333333';
+
+        function processLabels(labels) {
+            return labels.map(label => {
+                if (typeof label === 'string' && label.length > 16) {
+                    const words = label.split(' ');
+                    const lines = [];
+                    let currentLine = '';
+                    for (const word of words) {
+                        if ((currentLine + word).length > 16 && currentLine.length > 0) {
+                            lines.push(currentLine.trim());
+                            currentLine = word + ' ';
+                        } else {
+                            currentLine += word + ' ';
+                        }
+                    }
+                    lines.push(currentLine.trim());
+                    return lines;
+                }
+                return label;
+            });
+        }
+
+        const tooltipTitleCallback = function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+
+        const commonChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    },
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    titleFont: { size: 14 },
+                    bodyFont: { size: 12 },
+                    padding: 10,
+                    cornerRadius: 4
+                },
+                legend: {
+                    labels: {
+                        color: textColor,
+                        font: { size: 12 }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: gridColor },
+                    ticks: { color: textColor, font: {size: 10} }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: textColor, font: {size: 10} }
+                }
+            }
+        };
+        
+        const gdpGrowthLabels = ['FY15', 'FY16', 'FY17', 'FY18', 'FY19', 'FY20', 'FY21', 'FY22', 'FY23', 'FY24 (Est)'];
+        const gdpGrowthData = [4.1, 4.6, 5.4, 5.8, 2.5, -0.9, 5.8, 6.2, -0.2, 2.5];
+        new Chart(document.getElementById('gdpGrowthChart'), {
+            type: 'line',
+            data: {
+                labels: processLabels(gdpGrowthLabels),
+                datasets: [{
+                    label: 'Real GDP Growth (%)',
+                    data: gdpGrowthData,
+                    borderColor: primaryColor,
+                    backgroundColor: primaryColor + '33', // Light Coral Red fill
+                    tension: 0.1,
+                    fill: true
+                }]
+            },
+            options: commonChartOptions
+        });
+
+        const inflationLabels = ['FY15', 'FY16', 'FY17', 'FY18', 'FY19', 'FY20', 'FY21', 'FY22', 'FY23', 'FY24 (Est)'];
+        const inflationData = [4.5, 2.9, 4.2, 3.9, 6.8, 10.7, 8.9, 16.05, 30.0, 18.0]; // Using mid-points/averages for ranges
+        new Chart(document.getElementById('inflationChart'), {
+            type: 'bar',
+            data: {
+                labels: processLabels(inflationLabels),
+                datasets: [{
+                    label: 'Average CPI Inflation (%)',
+                    data: inflationData,
+                    backgroundColor: secondaryColor,
+                    borderColor: secondaryColor,
+                    borderWidth: 1
+                }]
+            },
+            options: commonChartOptions
+        });
+
+        const exchangeRateLabels = ['FY15', 'FY16', 'FY17', 'FY18', 'FY19', 'FY20', 'FY21', 'FY22', 'FY23', 'FY24 (Avg Est)'];
+        const exchangeRateData = [101.4, 104.3, 104.8, 110.0, 136.5, 158.0, 160.0, 177.5, 248.0, 279.0];
+        new Chart(document.getElementById('exchangeRateChart'), {
+            type: 'line',
+            data: {
+                labels: processLabels(exchangeRateLabels),
+                datasets: [{
+                    label: 'PKR/USD Avg. Exchange Rate',
+                    data: exchangeRateData,
+                    borderColor: accent1Color,
+                    backgroundColor: accent1Color + '33',
+                    tension: 0.1,
+                    fill: false
+                }]
+            },
+            options: commonChartOptions
+        });
+
+        const fiscalLabels = ['FY15', 'FY16', 'FY17', 'FY18', 'FY19', 'FY20', 'FY21', 'FY22', 'FY23', 'FY24 (Est)'];
+        const fiscalDeficitData = [-5.3, -4.6, -5.8, -6.6, -7.8, -7.0, -6.0, -7.8, -7.7, -6.8];
+        const publicDebtData = [64.0, 62.6, 61.6, 66.6, 77.5, 76.6, 71.4, 73.9, 74.9, 68.8]; // Mid-point for FY24
+        new Chart(document.getElementById('fiscalIndicatorsChart'), {
+            type: 'bar',
+            data: {
+                labels: processLabels(fiscalLabels),
+                datasets: [
+                    {
+                        label: 'Fiscal Deficit (% of GDP)',
+                        data: fiscalDeficitData,
+                        backgroundColor: primaryColor,
+                        yAxisID: 'y',
+                    },
+                    {
+                        label: 'Public Debt (% of GDP)',
+                        data: publicDebtData,
+                        type: 'line',
+                        borderColor: accent2Color,
+                        backgroundColor: accent2Color + '33',
+                        tension: 0.1,
+                        fill: false,
+                        yAxisID: 'y1',
+                    }
+                ]
+            },
+            options: { ...commonChartOptions, scales: {
+                y: { type: 'linear', display: true, position: 'left', title: { display: true, text: 'Fiscal Deficit (%)', color: textColor}, grid: {color: gridColor}, ticks: {color: textColor, font: {size: 10}}},
+                y1: { type: 'linear', display: true, position: 'right', title: { display: true, text: 'Public Debt (%)', color: textColor}, grid: { drawOnChartArea: false }, ticks: {color: textColor, font: {size: 10}}},
+                x: { grid: { display: false }, ticks: {color: textColor, font: {size: 10}} }
+            }}
+        });
+        
+        const currentAccountLabels = ['FY15', 'FY16', 'FY17', 'FY18', 'FY19', 'FY20', 'FY21', 'FY22', 'FY23', 'FY24 (Proj)'];
+        const currentAccountData = [-1.0, -1.7, -4.1, -5.8, -4.8, -1.0, -0.5, -4.7, -1.0, -0.55]; // Mid-point for FY24
+        new Chart(document.getElementById('currentAccountChart'), {
+            type: 'line',
+            data: {
+                labels: processLabels(currentAccountLabels),
+                datasets: [{
+                    label: 'Current Account Balance (% of GDP)',
+                    data: currentAccountData,
+                    borderColor: accent1Color,
+                    backgroundColor: accent1Color + '33',
+                    tension: 0.1,
+                    fill: true
+                }]
+            },
+            options: {...commonChartOptions, scales: {...commonChartOptions.scales, y: {...commonChartOptions.scales.y, beginAtZero: false}}}
+        });
+
+        const fxReservesLabels = ['FY15', 'FY16', 'FY17', 'FY18', 'FY19', 'FY20', 'FY21', 'FY22', 'FY23', 'FY24 (May25 Est)'];
+        const fxReservesData = [13.5, 18.2, 16.2, 9.9, 7.3, 11.5, 17.4, 9.8, 4.5, 10.4];
+        new Chart(document.getElementById('fxReservesChart'), {
+            type: 'bar',
+            data: {
+                labels: processLabels(fxReservesLabels),
+                datasets: [{
+                    label: 'FX Reserves (SBP, USD Billion, EOP)',
+                    data: fxReservesData,
+                    backgroundColor: secondaryColor,
+                    borderColor: secondaryColor,
+                    borderWidth: 1
+                }]
+            },
+            options: commonChartOptions
+        });
+
+        new Chart(document.getElementById('primarySurplusDonut'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Primary Surplus Achieved (H1 FY25)', 'Remaining to Target (FY25)'],
+                datasets: [{
+                    label: 'Primary Surplus (% of GDP)',
+                    data: [2.0, 0.1], // 2.0% achieved, 2.1% target means 0.1% remaining
+                    backgroundColor: [accent1Color, '#e0e0e0'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}% of GDP`;
+                            }
+                        }
+                    },
+                    title: { display: true, text: '2.0% of GDP (H1 FY25)', color: textColor, font: {size: 12}}
+                }
+            }
+        });
+        
+        const gdpForecastLabels = ['FY25 (Proj)', 'FY26 (Proj)', 'FY27 (Proj)'];
+        new Chart(document.getElementById('gdpForecastChart'), {
+            type: 'bar',
+            data: {
+                labels: processLabels(gdpForecastLabels),
+                datasets: [
+                    {
+                        label: 'IMF',
+                        data: [2.6, null, null], // IMF only FY25 in summary table
+                        backgroundColor: primaryColor,
+                    },
+                    {
+                        label: 'World Bank',
+                        data: [2.65, 3.15, 3.45], // Mid-points
+                        backgroundColor: secondaryColor,
+                    },
+                    {
+                        label: 'ADB',
+                        data: [2.5, 3.0, null], // ADB only FY25, FY26
+                        backgroundColor: accent1Color,
+                    }
+                ]
+            },
+            options: {...commonChartOptions, plugins: {...commonChartOptions.plugins, title: {display: true, text: 'Real GDP Growth Forecasts by Institution (%)', color: textColor}}}
+        });
+
+        const inflationForecastLabels = ['FY25 (Proj)', 'FY26 (Proj)']; // FY27 not consistently available for all
+        new Chart(document.getElementById('inflationForecastChart'), {
+            type: 'bar',
+            data: {
+                labels: processLabels(inflationForecastLabels),
+                datasets: [
+                    {
+                        label: 'IMF',
+                        data: [5.1, 7.7],
+                        backgroundColor: primaryColor,
+                    },
+                    {
+                        label: 'World Bank',
+                        data: [6.0, null], // WB only FY25 in summary table, implies rise
+                        backgroundColor: secondaryColor,
+                    },
+                    {
+                        label: 'ADB',
+                        data: [6.0, 5.8],
+                        backgroundColor: accent1Color,
+                    }
+                ]
+            },
+             options: {...commonChartOptions, plugins: {...commonChartOptions.plugins, title: {display: true, text: 'Avg. CPI Inflation Forecasts by Institution (%)', color: textColor}}}
+        });
+
+    </script>
+</body>
+</html>
+
