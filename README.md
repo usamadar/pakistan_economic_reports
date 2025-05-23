@@ -2,6 +2,8 @@
 
 This repository contains an economic report for Pakistan, providing insights and analysis of the country's economic indicators and trends.
 
+You can read the report at https://usamadar.github.io/pakistan_economic_reports/
+
 ## Contents
 
 The repository includes:
