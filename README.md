@@ -18,7 +18,7 @@ The economic report provides detailed analysis of Pakistan's economic situation,
 ## Viewing the Report
 
 To view the report:
-1. Open the `pakistan_economy_23052025.html` file in any modern web browser
+1. Open the `index.html` file in any modern web browser
 2. The report is formatted for easy reading and includes interactive elements
 
 ## Contributing
