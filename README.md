@@ -5,7 +5,7 @@ This repository contains an economic report for Pakistan, providing insights and
 ## Contents
 
 The repository includes:
-- `pakistan_economy_23052025.html`: A comprehensive HTML report detailing Pakistan's economic analysis
+- `index.html`: A comprehensive HTML report detailing Pakistan's economic analysis
 
 ## Report Overview
 
